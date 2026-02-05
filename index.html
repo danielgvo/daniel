@@ -3,20 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <title>Romantikstadt Steyr</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 1. FARB-VARIABLEN */
+        :root {
+            --bg-color: #E3E3E3;
+            --content-bg: white;
+            --text-color: #333;
+            --headline-color: #007baf;
+            --nav-bg: #007baf;
+            --nav-text: white;
+            --switch-bg: #ccc;
+        }
+
+        /* Dark Mode Farben */
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --content-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --headline-color: #4db8e6;
+            --nav-bg: #005a82;
+            --switch-bg: #007baf;
+        }
+
+        /* 2. BASIS STYLING */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Bahnschrift', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            position: relative;
+            padding: 20px;
+            background-color: var(--content-bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1, h2 {
+            font-family: 'Calisto MT', serif;
+            color: var(--headline-color);
+        }
+
+        nav {
+            background-color: var(--nav-bg);
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--nav-text);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            background-color: var(--content-bg);
+        }
+
+        .bilder {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .bilder img {
+            border-radius: 8px;
+            transition: filter 0.3s;
+        }
+
+        [data-theme="dark"] img:not(.logo):not(.pfeil) {
+            filter: brightness(0.8) contrast(1.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* 3. TOGGLE SWITCH STYLING */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 34px;
+            position: relative;
+            width: 60px;
+        }
+
+        .theme-switch input { display: none; }
+
+        .slider {
+            background-color: var(--switch-bg);
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+        }
+
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 26px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 26px;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* 4. LOGO FIX */
+        .logo { height: 60px; }
+    </style>
 </head>
-<header>
-    <h1>Willkommen in Steyr</h1>
-    <button id="theme-toggle" class="theme-btn">🌙 Modus wechseln</button>
-    <img src="logo steyr.png" alt="Logo Stadt Steyr" class="logo">
-</header>
-
-<script src="script.js"></script>
-
 <body id="top">
 
 <header>
-    <h1>Willkommen in Steyr</h1>
+    <div>
+        <h1>Willkommen in Steyr</h1>
+    </div>
+    
+    <div class="theme-switch-wrapper">
+        <span id="mode-label">Mode:</span>
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider">
+                <span>🌙</span>
+                <span>☀️</span>
+            </div>
+        </label>
+    </div>
+
     <img src="logo steyr.png" alt="Logo Stadt Steyr" class="logo">
 </header>
 
@@ -28,62 +172,58 @@
 </nav>
 
 <main>
+    <h2>Steyr am Nationalpark – natürlich romantisch!</h2>
+    <p>Steyr am Nationalpark, reich an Kultur, Industrie, Natur und Architektur ist eine lebens- und liebenswerte Kleinstadt.</p>
+    
+    <div class="bilder">
+        <img src="stadtplatz.jpg" height="170" alt="Stadtplatz Steyr">
+        <img src="stadttor.jpg" height="170" alt="Stadttor">
+        <img src="zweifluesseestadt.jpg" height="170" alt="Zweiflüssestadt">
+    </div>
 
-<h2>Steyr am Nationalpark – natürlich romantisch!</h2>
+    <h2>Aktivitäten in Steyr:</h2>
+    <ul>
+        <li><strong>Nachtwächter:</strong> Zeitreise in die Vergangenheit.</li>
+        <li><strong>Segway:</strong> Steyr erschweben.</li>
+        <li><strong>Nationalpark:</strong> Natur pur in 30 Minuten.</li>
+    </ul>
 
-<p>
-Steyr am Nationalpark, reich an Kultur, Industrie, Natur und Architektur ist eine lebens-
-und liebenswerte Kleinstadt. Die 1000-jährige Stadt liegt inmitten der Österreichischen
-Romantikstraße zwischen Salzburg und Wien und ist ein wahres Architekturjuwel.
-</p>
-
-<p>
-Am historischen Stadtplatz reihen sich Bürgerhäuser aus verschiedenen Stilepochen
-harmonisch aneinander. Malerisch ist der Zusammenfluss von Enns und Steyr unterhalb
-des Schlosses.
-</p>
-
-<!-- Erste Bildreihe -->
-<div class="bilder">
-    <img src="stadtplatz.jpg" height="170" alt="Stadtplatz Steyr">
-    <img src="stadttor.jpg" height="170" alt="Stadttor">
-    <img src="zweifluesseestadt.jpg" height="170" alt="Zweiflüssestadt">
-</div>
-
-<h2>In Steyr ist immer was los – entscheiden Sie sich für eine dieser Aktivitäten:</h2>
-
-<ul>
-    <li><strong>Vom höchsten Turm in den tiefsten Keller</strong><br>
-        Begleiten Sie die Steyrer Nachtwächter auf Zeitreise in die Vergangenheit.</li>
-
-    <li><strong>Steyr erschweben</strong><br>
-        Der Sprung vom Mittelalter ins Hightech-Zeitalter gelingt lautlos auf dem Segway.</li>
-
-    <li><strong>Ein Eldorado für Naturliebhaber</strong><br>
-        In nur 30 Minuten erreicht man den Nationalpark Kalkalpen.</li>
-
-    <li><strong>Advent in Steyr</strong><br>
-        Steyr wird zur offiziellen Christkindlstadt Österreichs.</li>
-</ul>
-
-<!-- Zweite Bildreihe -->
-<div class="bilder">
-    <img src="nachtwaechter.jpg" height="185" alt="Nachtwächter">
-    <img src="panoramalift.jpg" height="185" alt="Panoramalift">
-    <img src="christkindl.jpg" height="185" alt="Christkindl">
-</div>
-
-<p class="abschluss">
-    Es gibt viel zu entdecken bei uns, wir freuen uns auf Ihren Besuch!
-</p>
-
+    <div class="bilder">
+        <img src="nachtwaechter.jpg" height="185" alt="Nachtwächter">
+        <img src="panoramalift.jpg" height="185" alt="Panoramalift">
+        <img src="christkindl.jpg" height="185" alt="Christkindl">
+    </div>
 </main>
 
 <footer>
     <a href="#top">
-        <img src="pfeil.png" alt="Nach oben" class="pfeil">
+        <img src="pfeil.png" alt="Nach oben" class="pfeil" width="40">
     </a>
 </footer>
+
+<script>
+    const toggleSwitch = document.querySelector('#checkbox');
+    const currentTheme = localStorage.getItem('theme');
+
+    // Checke gespeichertes Design
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            toggleSwitch.checked = true;
+        }
+    }
+
+    // Funktion zum Umschalten
+    toggleSwitch.addEventListener('change', function(e) {
+        if (e.target.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }    
+    });
+</script>
 
 </body>
 </html>
