@@ -1,229 +1,182 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title>Romantikstadt Steyr</title>
     <style>
-        /* 1. FARB-VARIABLEN */
+        /* Definition der Farbvariablen */
         :root {
             --bg-color: #E3E3E3;
-            --content-bg: white;
-            --text-color: #333;
+            --text-color: #585858;
             --headline-color: #007baf;
             --nav-bg: #007baf;
-            --nav-text: white;
-            --switch-bg: #ccc;
+            --nav-link: #E3E3E3;
+            --list-bullet: #424242;
         }
 
-        /* Dark Mode Farben */
+        /* Farben für den Dark Mode */
         [data-theme="dark"] {
             --bg-color: #121212;
-            --content-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --headline-color: #4db8e6;
-            --nav-bg: #005a82;
-            --switch-bg: #007baf;
+            --text-color: #b0b0b0;
+            --headline-color: #4db8ff;
+            --nav-bg: #1f1f1f;
+            --nav-link: #4db8ff;
+            --list-bullet: #d1d1d1;
         }
 
-        /* 2. BASIS STYLING */
-        body {
-            background-color: var(--bg-color);
+        body { 
+            font-family: Bahnschrift; 
+            background-color: var(--bg-color); 
             color: var(--text-color);
-            font-family: 'Bahnschrift', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
             margin: 0;
             padding: 0;
-            transition: background-color 0.3s, color 0.3s;
         }
 
-        header {
-            position: relative;
-            padding: 20px;
-            background-color: var(--content-bg);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        header { 
+            font-family: Calisto MT; 
+            padding: 10px 20px;
         }
 
-        h1, h2 {
-            font-family: 'Calisto MT', serif;
-            color: var(--headline-color);
+        nav { 
+            font-family: Bahnschrift; 
+            color: var(--nav-link); 
+            background-color: var(--nav-bg); 
+            padding: 5px 20px;
+            transition: background-color 0.3s;
         }
 
-        nav {
-            background-color: var(--nav-bg);
-            padding: 15px;
-            text-align: center;
-        }
-
-        nav a {
-            color: var(--nav-text);
+        nav a { 
+            color: var(--nav-link); 
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
         }
 
-        main {
-            padding: 20px;
-            max-width: 900px;
-            margin: auto;
-            background-color: var(--content-bg);
+        h1 { font-family: Calisto MT; color: var(--headline-color); font-size: 44px; }
+        h2 { font-family: Calisto MT; color: var(--headline-color); font-weight: bold; font-size: 22px; }
+        h3 { font-size: 18px; }
+        p { color: var(--text-color); }
+        ul { color: var(--list-bullet); }
+        
+        /* Button Styling */
+        .mode-toggle-container {
+            text-align: right;
+            padding: 10px;
         }
 
-        .bilder {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .bilder img {
-            border-radius: 8px;
-            transition: filter 0.3s;
-        }
-
-        [data-theme="dark"] img:not(.logo):not(.pfeil) {
-            filter: brightness(0.8) contrast(1.1);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* 3. TOGGLE SWITCH STYLING */
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .theme-switch {
-            display: inline-block;
-            height: 34px;
-            position: relative;
-            width: 60px;
-        }
-
-        .theme-switch input { display: none; }
-
-        .slider {
-            background-color: var(--switch-bg);
-            bottom: 0;
+        #theme-toggle {
+            background-color: var(--headline-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            transition: .4s;
-            border-radius: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 6px;
+            font-family: Bahnschrift;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .slider:before {
-            background-color: #fff;
-            bottom: 4px;
-            content: "";
-            height: 26px;
-            left: 4px;
-            position: absolute;
-            transition: .4s;
-            width: 26px;
-            border-radius: 50%;
-            z-index: 2;
+        main { padding: 20px; }
+        
+        /* Korrektur für die Bildgrößen */
+        img { max-width: 100%; height: auto; }
+        
+        /* Spezifische Größe für die Bildergalerien im Text */
+        main p[align="center"] img {
+            height: 150px; /* Hier kannst du die Größe anpassen */
+            width: auto;
+            margin: 10px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        input:checked + .slider:before {
-            transform: translateX(26px);
+        /* Der Pfeil nach oben soll klein bleiben */
+        .scroll-top-img {
+            height: 40px !important;
         }
-
-        /* 4. LOGO FIX */
-        .logo { height: 60px; }
     </style>
 </head>
-<body id="top">
+<body>
 
-<header>
-    <div>
-        <h1>Willkommen in Steyr</h1>
-    </div>
-    
-    <div class="theme-switch-wrapper">
-        <span id="mode-label">Mode:</span>
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider">
-                <span>🌙</span>
-                <span>☀️</span>
-            </div>
-        </label>
+    <div class="mode-toggle-container">
+        <button id="theme-toggle">Modus wechseln</button>
     </div>
 
-    <img src="logo steyr.png" alt="Logo Stadt Steyr" class="logo">
-</header>
+    <header>
+        <h1>Willkommen in Steyr 
+            <img src="Romantikstadt%20Steyr-Dateien/logo%20steyr%20ohne%20hintergrund.png" alt="logo" height="30" align="right">
+        </h1>
+    </header>
 
-<nav>
-    <a href="https://www.steyr-nationalpark.at/orte/region/gastronomie-steyr.html">Gastronomie</a>
-    <a href="https://www.steyr-nationalpark.at/orte/region/unterkuenfte-steyr.html">Unterkünfte</a>
-    <a href="https://www.steyr-nationalpark.at/advent.html">Advent in Steyr</a>
-    <a href="https://www.steyr-nationalpark.at/orte/region/steyr-am-fluss-der-zeit/oesterreich-angebot/detail/7720/steyrer-augenblicke.html">Steyr Moments</a>
-</nav>
+    <nav>
+        <h3>
+            <a href="https://www.steyr-nationalpark.at/orte/region/gastronomie-steyr.html">Gastronomie</a> | 
+            <a href="https://www.steyr-nationalpark.at/orte/region/unterkuenfte-steyr.html">Unterkünfte</a> | 
+            <a href="https://www.steyr-nationalpark.at/advent.html">Advent in Steyr</a> | 
+            <a href="https://www.steyr-nationalpark.at/orte/region/steyr-am-fluss-der-zeit/oesterreich-angebot/detail/7720/steyrer-augenblicke.html">Steyr Moments - Angebot</a>
+        </h3>
+    </nav>
 
-<main>
-    <h2>Steyr am Nationalpark – natürlich romantisch!</h2>
-    <p>Steyr am Nationalpark, reich an Kultur, Industrie, Natur und Architektur ist eine lebens- und liebenswerte Kleinstadt.</p>
-    
-    <div class="bilder">
-        <img src="stadtplatz.jpg" height="170" alt="Stadtplatz Steyr">
-        <img src="stadttor.jpg" height="170" alt="Stadttor">
-        <img src="zweifluesseestadt.jpg" height="170" alt="Zweiflüssestadt">
-    </div>
+    <main>
+        <h2>Steyr am Nationalpark – natürlich romantisch!</h2>
+        <p>
+            Steyr am Nationalpark, reich an Kultur, Industrie, Natur und Architektur ist eine lebens- und liebenswerte Kleinstadt. 
+            Die 1000-jährige Stadt liegt inmitten der Österreichischen Romantikstraße zwischen Salzburg und Wien und ist ein wahres Architekturjuwel. 
+            Am historischen Stadtplatz reihen sich Bürgerhäuser aus verschiedenen Stilepochen harmonisch aneinander. 
+            Malerisch ist der Zusammenfluss von Enns und Steyr unterhalb des Schlosses, die beiden Flüsse bestimmen seit Jahrhunderten die Entwicklung der Stadt.
+            Erleben Sie das besondere Flair der Stadt Steyr und überzeugen Sie sich selbst von der harmonischen Symbiose zwischen traditionsreicher Vergangenheit und pulsierender Gegenwart!
+        </p>
 
-    <h2>Aktivitäten in Steyr:</h2>
-    <ul>
-        <li><strong>Nachtwächter:</strong> Zeitreise in die Vergangenheit.</li>
-        <li><strong>Segway:</strong> Steyr erschweben.</li>
-        <li><strong>Nationalpark:</strong> Natur pur in 30 Minuten.</li>
-    </ul>
+        <p align="center">
+            <img src="Romantikstadt%20Steyr-Dateien/zweifluesseestadt.jpg" alt="Zusammenfluss Enns und Steyr"> 
+            <img src="Romantikstadt%20Steyr-Dateien/stadtplatz.jpg" alt="Stadtplatz Steyr"> 
+            <img src="Romantikstadt%20Steyr-Dateien/panoramalift.jpg" alt="Panoramalift">
+        </p>
 
-    <div class="bilder">
-        <img src="nachtwaechter.jpg" height="185" alt="Nachtwächter">
-        <img src="panoramalift.jpg" height="185" alt="Panoramalift">
-        <img src="christkindl.jpg" height="185" alt="Christkindl">
-    </div>
-</main>
+        <h2>In Steyr ist immer was los - entscheiden Sie sich für eine dieser Aktivitäten:</h2>
+        <ul>
+            <li><b>Vom höchsten Turm in den tiefsten Keller</b><br>
+            Begleiten Sie die Steyrer Nachtwächter auf Zeitreise in die Vergangenheit und lauschen Sie ihren Gschichtln und Anekdoten!</li>
+            <li><b>Steyr erschweben</b><br>
+            Der Sprung vom Mittelalter ins Hightech-Zeitalter gelingt in Steyr mühelos beim lautlosen Schweben auf den Segways, den ultimativen Kult-Rollern!</li>
+            <li><b>Ein Eldorado für Naturliebhaber</b><br>
+            In nur 30 Autominuten erreicht man das Besucherzentrum Ennstal, den idealen Ausgangspunkt für alle Touren in den Nationalpark Kalkalpen.</li>
+            <li><b>Advent in Steyr</b><br>
+            In der Adventzeit verwandelt sich Steyr zu Österreichs offizieller Christkindlstadt. 
+            Das Postamt und die Wallfahrtskirche in Christkindl, das Steyrer Kripperl oder das Weihnachtsmuseum mit Erlebnisbahn sind nur einige der vorweihnachtlichen Attraktionen.</li>
+        </ul>
 
-<footer>
-    <a href="#top">
-        <img src="pfeil.png" alt="Nach oben" class="pfeil" width="40">
-    </a>
-</footer>
+        <p align="center">
+            <img src="Romantikstadt%20Steyr-Dateien/nationalpark%20kalkalpen.jpg" alt="Nationalpark Kalkalpen"> 
+            <img src="Romantikstadt%20Steyr-Dateien/nachtwaechter.jpg" alt="Steyrer Nachtwächter"> 
+            <img src="Romantikstadt%20Steyr-Dateien/christkindl.jpg" alt="Christkindl">
+        </p>
 
-<script>
-    const toggleSwitch = document.querySelector('#checkbox');
-    const currentTheme = localStorage.getItem('theme');
+        <h2 align="center">Es gibt viel zu entdecken bei uns, wir freuen uns auf Ihren Besuch!</h2>
+    </main>
 
-    // Checke gespeichertes Design
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
+    <p align="right">
+        <a href="#"><img src="Romantikstadt%20Steyr-Dateien/pfeil.png" alt="nach oben" class="scroll-top-img"></a>
+    </p>
+
+    <script>
+        const btn = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+
         if (currentTheme === 'dark') {
-            toggleSwitch.checked = true;
-        }
-    }
-
-    // Funktion zum Umschalten
-    toggleSwitch.addEventListener('change', function(e) {
-        if (e.target.checked) {
             document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        }    
-    });
-</script>
+        }
 
+        btn.addEventListener('click', function() {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
